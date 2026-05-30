@@ -12,7 +12,9 @@ server:
 
 app:
   jwt:
-    # Clave secreta para firmar los JWT (HS256). En producción debe inyectarse por variable de entorno.
     secret: ${JWT_SECRET:Y3VsdHVyYW5hLW5hcmluby1zZWNyZXQta2V5LXBhcmEtZmlybWFyLWp3dC1obWFjLXNoYS0yNTYtMjAyNg==}
-    # Vigencia del token en milisegundos (24 horas).
     expiration-ms: 86400000
+
+logging:
+  level:
+    org.springframework.boot.context.config: DEBUG
