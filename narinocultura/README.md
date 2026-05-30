@@ -1,5 +1,5 @@
 <div align="center">
-#   Plataforma Cultural de Nariño — Backend
+#   Plataforma Cultural de Nariño — Backend 
 
 **Plataforma web de difusión y preservación cultural del departamento de Nariño**
 
@@ -175,7 +175,7 @@ POST /api/auth/login
  
 ---
 
-### 👤 Usuarios (requiere rol ADMINISTRADOR)
+###  Usuarios (requiere rol ADMINISTRADOR)
 
 | Método | Ruta                            | Descripción |
 |--------|---------------------------------|-------------|
@@ -186,7 +186,7 @@ POST /api/auth/login
  
 ---
 
-### 📰 Artículos culturales
+### Artículos culturales
 
 | Método | Ruta                     | Acceso | Descripción |
 |--------|--------------------------|--------|-------------|
