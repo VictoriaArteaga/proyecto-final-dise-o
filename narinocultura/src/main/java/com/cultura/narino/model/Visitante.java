@@ -1,33 +1,43 @@
 package com.cultura.narino.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Visitante extends Usuario {
 
-    private Date fechaRegistro;
+
+    private List<String> articulosFavoritos = new ArrayList<>();
 
     public Visitante() {
         super();
-        this.rol = Rol.VISITANTE;
     }
 
     public Visitante(String nombre, String correo) {
         super(nombre, correo);
-        this.rol = Rol.VISITANTE;
-        this.fechaRegistro = new Date();
     }
 
-    public Date getFechaRegistro() {
-        return fechaRegistro;
+    public List<String> getArticulosFavoritos() {
+        return articulosFavoritos;
     }
 
-    public void setFechaRegistro(Date fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
+    public void setArticulosFavoritos(List<String> articulosFavoritos) {
+        this.articulosFavoritos = articulosFavoritos;
+    }
+
+    public void agregarFavorito(String articuloId) {
+        if (!articulosFavoritos.contains(articuloId)) {
+            articulosFavoritos.add(articuloId);
+        }
+    }
+
+    public void quitarFavorito(String articuloId) {
+        articulosFavoritos.remove(articuloId);
     }
 
     @Override
     public String toString() {
         return "Visitante{id='" + id + "', nombre='" + nombre + "', correo='" + correo +
-                "', fechaRegistro=" + fechaRegistro + "}";
+                "', favoritos=" + articulosFavoritos.size() + "}";
     }
 }

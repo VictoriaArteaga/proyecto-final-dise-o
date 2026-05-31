@@ -54,13 +54,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/eventos/**").hasRole("ADMINISTRADOR")
 
                         // Admin gestiona usuarios
-                        .requestMatchers("/api/usuarios/**").hasRole("ADMINISTRADOR")
+                        .requestMatchers("/api/auth/usuarios/**").hasRole("ADMINISTRADOR")
 
                         // Cualquier usuario autenticado puede comentar
                         .requestMatchers(HttpMethod.POST, "/api/comentarios/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/comentarios/**").authenticated()
 
-                        .requestMatchers("/api/perfil/**").authenticated()
+                        .requestMatchers("/api/auth/perfil/**").authenticated()
 
                         .anyRequest().authenticated()
                 )

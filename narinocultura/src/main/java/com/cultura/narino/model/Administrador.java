@@ -1,10 +1,5 @@
 package com.cultura.narino.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.time.Instant;
 import java.util.Date;
 
 public class Administrador extends Usuario {
@@ -14,12 +9,10 @@ public class Administrador extends Usuario {
 
     public Administrador() {
         super();
-        this.rol = Rol.ADMINISTRADOR;
     }
 
     public Administrador(String nombre, String correo) {
         super(nombre, correo);
-        this.rol = Rol.ADMINISTRADOR;
         this.fechaAsignacion = new Date();
     }
 

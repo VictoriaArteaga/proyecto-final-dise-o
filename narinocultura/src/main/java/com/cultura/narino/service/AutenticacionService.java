@@ -5,7 +5,6 @@ import com.cultura.narino.dto.RegistroRequest;
 import com.cultura.narino.dto.AuthResponse;
 import com.cultura.narino.dto.PerfilResponse;
 import com.cultura.narino.dto.UsuarioResumen;
-import com.cultura.narino.model.Rol;
 
 import java.util.List;
 
@@ -21,5 +20,5 @@ public interface AutenticacionService {
 
     List<UsuarioResumen> listarUsuarios();
 
-    PerfilResponse cambiarRol(String userId, Rol nuevoRol);
+    PerfilResponse cambiarRol(String userId, String nuevoRol);
 }

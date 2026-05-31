@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/auth")
 public class AutenticacionController {
 
     private final AutenticacionService autenticacionService;
@@ -24,12 +24,12 @@ public class AutenticacionController {
         this.autenticacionService = autenticacionService;
     }
 
-    @PostMapping("/registro")
+    @PostMapping("/auth/registro")
     public ResponseEntity<PerfilResponse> registrar(@Valid @RequestBody RegistroRequest req) {
         return ResponseEntity.ok(autenticacionService.registrar(req));
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<AuthResponse> iniciarSesion(@Valid @RequestBody LoginRequest req) {
         return ResponseEntity.ok(autenticacionService.iniciarSesion(req));
     }

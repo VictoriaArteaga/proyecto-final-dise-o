@@ -9,7 +9,6 @@ import com.cultura.narino.exception.BusinessException;
 import com.cultura.narino.exception.ResourceNotFoundException;
 import com.cultura.narino.exception.UnauthorizedException;
 import com.cultura.narino.model.Administrador;
-import com.cultura.narino.model.Rol;
 import com.cultura.narino.model.Usuario;
 import com.cultura.narino.model.Visitante;
 import com.cultura.narino.repository.UsuarioRepository;
@@ -48,12 +47,8 @@ public class AutenticacionServiceImpl implements AutenticacionService {
 
         Usuario guardado = usuarioRepository.save(nuevo);
 
-        return new PerfilResponse(
-                guardado.getId(),
-                guardado.getNombre(),
-                guardado.getCorreo(),
-                guardado.getRol().name()
-        );
+        return new PerfilResponse(guardado.getId(), guardado.getNombre(),
+                guardado.getCorreo(), guardado.getRol());
     }
 
     @Override
@@ -66,16 +61,15 @@ public class AutenticacionServiceImpl implements AutenticacionService {
         }
 
         String token = jwtService.generarToken(usuario);
-
-        return new AuthResponse(token, usuario.getNombre(), usuario.getRol().name());
+        return new AuthResponse(token, usuario.getNombre(), usuario.getRol());
     }
 
     @Override
     public void eliminarUsuario(String userId, String solicitanteId) {
         Usuario solicitante = usuarioRepository.findById(solicitanteId)
-                .orElseThrow(() -> new ResourceNotFoundException("Usuario solicitante no encontrado"));
+                .orElseThrow(() -> new ResourceNotFoundException("Solicitante no encontrado"));
 
-        if (solicitante.getRol() != Rol.ADMINISTRADOR) {
+        if (!(solicitante instanceof Administrador)) {
             throw new UnauthorizedException("Solo un administrador puede eliminar usuarios");
         }
 
@@ -91,53 +85,43 @@ public class AutenticacionServiceImpl implements AutenticacionService {
         Usuario usuario = usuarioRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
 
-        return new PerfilResponse(
-                usuario.getId(),
-                usuario.getNombre(),
-                usuario.getCorreo(),
-                usuario.getRol().name()
-        );
+        return new PerfilResponse(usuario.getId(), usuario.getNombre(),
+                usuario.getCorreo(), usuario.getRol());
     }
 
     @Override
     public List<UsuarioResumen> listarUsuarios() {
         return usuarioRepository.findAll().stream()
-                .map(u -> new UsuarioResumen(
-                        u.getId(),
-                        u.getNombre(),
-                        u.getCorreo(),
-                        u.getRol().name()))
+                .map(u -> new UsuarioResumen(u.getId(), u.getNombre(),
+                        u.getCorreo(), u.getRol()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public PerfilResponse cambiarRol(String userId, Rol nuevoRol) {
+    public PerfilResponse cambiarRol(String userId, String nuevoRol) {
         Usuario usuario = usuarioRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
 
         Usuario actualizado;
-        if (nuevoRol == Rol.ADMINISTRADOR && !(usuario instanceof Administrador)) {
+
+        if ("ADMINISTRADOR".equalsIgnoreCase(nuevoRol) && !(usuario instanceof Administrador)) {
             Administrador admin = new Administrador(usuario.getNombre(), usuario.getCorreo());
             admin.setId(usuario.getId());
             admin.setContrasena(usuario.getContrasena());
             actualizado = admin;
-        } else if (nuevoRol == Rol.VISITANTE && !(usuario instanceof Visitante)) {
+
+        } else if ("VISITANTE".equalsIgnoreCase(nuevoRol) && !(usuario instanceof Visitante)) {
             Visitante visitante = new Visitante(usuario.getNombre(), usuario.getCorreo());
             visitante.setId(usuario.getId());
             visitante.setContrasena(usuario.getContrasena());
             actualizado = visitante;
+
         } else {
-            usuario.setRol(nuevoRol);
-            actualizado = usuario;
+            actualizado = usuario; // ya tiene el rol pedido
         }
 
         Usuario guardado = usuarioRepository.save(actualizado);
-
-        return new PerfilResponse(
-                guardado.getId(),
-                guardado.getNombre(),
-                guardado.getCorreo(),
-                guardado.getRol().name()
-        );
+        return new PerfilResponse(guardado.getId(), guardado.getNombre(),
+                guardado.getCorreo(), guardado.getRol());
     }
 }

@@ -27,7 +27,8 @@ public class JwtService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", usuario.getId());
         claims.put("nombre", usuario.getNombre());
-        claims.put("rol", usuario.getRol().name());
+        // El rol se deriva directamente del tipo de clase (Administrador → ADMINISTRADOR)
+        claims.put("rol", usuario.getRol());
 
         return Jwts.builder()
                 .claims(claims)

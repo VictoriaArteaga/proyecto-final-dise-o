@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
         @JsonSubTypes.Type(value = Administrador.class, name = "Administrador"),
         @JsonSubTypes.Type(value = Visitante.class, name = "Visitante")
 })
-public class Usuario {
+public abstract class Usuario {
 
     @Id
     protected String id;
@@ -22,7 +22,6 @@ public class Usuario {
     protected String correo;
 
     protected String contrasena;
-    protected Rol rol;
 
     public Usuario() {
     }
@@ -30,6 +29,19 @@ public class Usuario {
     public Usuario(String nombre, String correo) {
         this.nombre = nombre;
         this.correo = correo;
+    }
+
+
+    public String getRol() {
+        return this.getClass().getSimpleName().toUpperCase();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -48,14 +60,6 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getContrasena() {
         return contrasena;
     }
@@ -64,16 +68,9 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
-
     @Override
     public String toString() {
-        return "Usuario{id='" + id + "', nombre='" + nombre + "', correo='" + correo + "', rol=" + rol + "}";
+        return "Usuario{id='" + id + "', nombre='" + nombre + "', correo='" + correo +
+                "', rol=" + getRol() + "}";
     }
 }
