@@ -24,12 +24,12 @@ public class AutenticacionController {
         this.autenticacionService = autenticacionService;
     }
 
-    @PostMapping("/auth/registro")
+    @PostMapping("/registro")
     public ResponseEntity<PerfilResponse> registrar(@Valid @RequestBody RegistroRequest req) {
         return ResponseEntity.ok(autenticacionService.registrar(req));
     }
 
-    @PostMapping("/auth/login")
+    @PostMapping("/login")
     public ResponseEntity<AuthResponse> iniciarSesion(@Valid @RequestBody LoginRequest req) {
         return ResponseEntity.ok(autenticacionService.iniciarSesion(req));
     }
