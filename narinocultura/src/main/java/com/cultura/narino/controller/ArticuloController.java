@@ -3,7 +3,7 @@ package com.cultura.narino.controller;
 import com.cultura.narino.dto.ArticuloRequest;
 import com.cultura.narino.dto.ArticuloResponse;
 import com.cultura.narino.dto.ArticuloResumen;
-import com.cultura.narino.model.CategoriaEnum;
+import com.cultura.narino.model.Categoria;
 import com.cultura.narino.service.ArticuloService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,7 @@ public class ArticuloController {
 
     @GetMapping
     public ResponseEntity<Page<ArticuloResumen>> listar(
-            @RequestParam(required = false) CategoriaEnum categoria,
+            @RequestParam(required = false) Categoria categoria,
             @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {

@@ -28,13 +28,13 @@ public class Administrador extends Usuario {
         return fechaAsignacion;
     }
 
-    public void setFechaAsignacion(Date fechaAsignacion) {
-        this.fechaAsignacion = fechaAsignacion;
+    public void setFechaAsignacion(Date fecha) {
+        this.fechaAsignacion = fecha;
     }
 
     @Override
     public String toString() {
-        return "Administrador{id='" + id + "', nombre='" + nombre + "', correo='" + correo +
+        return "Administrador{id='" + id + "', nombre='" + nombre +
                 "', nivelAcceso='" + nivelAcceso + "', fechaAsignacion=" + fechaAsignacion + "}";
     }
 }

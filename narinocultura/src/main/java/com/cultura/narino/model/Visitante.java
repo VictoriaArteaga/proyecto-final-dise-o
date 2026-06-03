@@ -1,11 +1,9 @@
 package com.cultura.narino.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Visitante extends Usuario {
-
 
     private List<String> articulosFavoritos = new ArrayList<>();
 
@@ -37,7 +35,7 @@ public class Visitante extends Usuario {
 
     @Override
     public String toString() {
-        return "Visitante{id='" + id + "', nombre='" + nombre + "', correo='" + correo +
+        return "Visitante{id='" + id + "', nombre='" + nombre +
                 "', favoritos=" + articulosFavoritos.size() + "}";
     }
 }

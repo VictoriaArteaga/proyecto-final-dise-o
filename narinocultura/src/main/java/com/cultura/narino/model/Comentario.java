@@ -12,6 +12,7 @@ public class Comentario {
     private String id;
     private String contenido;
     private Date fechaCreacion;
+
     private String autorId;
     private String articuloId;
 
@@ -67,7 +68,7 @@ public class Comentario {
 
     @Override
     public String toString() {
-        return "Comentario{id='" + id + "', autorId='" + autorId + "', articuloId='" + articuloId +
-                "', fechaCreacion=" + fechaCreacion + "}";
+        return "Comentario{id='" + id + "', autorId='" + autorId +
+                "', articuloId='" + articuloId + "', fechaCreacion=" + fechaCreacion + "}";
     }
 }

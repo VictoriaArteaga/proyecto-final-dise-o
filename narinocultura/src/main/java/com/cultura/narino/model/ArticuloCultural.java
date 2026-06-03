@@ -12,15 +12,17 @@ public class ArticuloCultural {
     private String id;
     private String titulo;
     private String descripcion;
-    private CategoriaEnum categoria;
+    private Categoria categoria;
     private String imagenUrl;
     private Date fechaPublicacion;
+
+    // Referencia al administrador que lo creó
     private String autorId;
 
     public ArticuloCultural() {
     }
 
-    public ArticuloCultural(String titulo, String descripcion, CategoriaEnum categoria) {
+    public ArticuloCultural(String titulo, String descripcion, Categoria categoria) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.categoria = categoria;
@@ -51,11 +53,11 @@ public class ArticuloCultural {
         this.descripcion = descripcion;
     }
 
-    public CategoriaEnum getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(CategoriaEnum categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
@@ -85,7 +87,7 @@ public class ArticuloCultural {
 
     @Override
     public String toString() {
-        return "ArticuloCultural{id='" + id + "', titulo='" + titulo + "', categoria=" + categoria +
-                ", fechaPublicacion=" + fechaPublicacion + "}";
+        return "ArticuloCultural{id='" + id + "', titulo='" + titulo +
+                "', categoria=" + categoria + ", fechaPublicacion=" + fechaPublicacion + "}";
     }
 }

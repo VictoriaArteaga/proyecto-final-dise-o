@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Collections;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -43,24 +43,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             if (jwtService.esTokenValido(token)) {
                 String correo = jwtService.extraerCorreo(token);
-                String rol = jwtService.extraerRol(token);
+                String rol = jwtService.extraerRol(token); // Viene como "ADMINISTRADOR"
                 String id = jwtService.extraerId(token);
 
-                if (SecurityContextHolder.getContext().getAuthentication() == null) {
+                if (correo != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    String authorityName = rol.startsWith("ROLE_") ? rol : "ROLE_" + rol;
+
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             correo,
                             null,
-                            List.of(new SimpleGrantedAuthority("ROLE_" + rol))
+                            Collections.singletonList(new SimpleGrantedAuthority(authorityName))
                     );
-                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     request.setAttribute("userId", id);
                     request.setAttribute("userRol", rol);
 
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            // Loguear el error ayuda a saber por qué falla el token en consola
+            System.err.println("Error procesando JWT: " + e.getMessage());
         }
 
         filterChain.doFilter(request, response);

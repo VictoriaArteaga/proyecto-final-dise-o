@@ -5,7 +5,7 @@ import com.cultura.narino.dto.ArticuloResponse;
 import com.cultura.narino.dto.ArticuloResumen;
 import com.cultura.narino.exception.ResourceNotFoundException;
 import com.cultura.narino.model.ArticuloCultural;
-import com.cultura.narino.model.CategoriaEnum;
+import com.cultura.narino.model.Categoria;
 import com.cultura.narino.repository.ArticuloRepository;
 import com.cultura.narino.service.ArticuloService;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 @Service
 public class ArticuloServiceImpl implements ArticuloService {
@@ -25,7 +24,7 @@ public class ArticuloServiceImpl implements ArticuloService {
     }
 
     @Override
-    public Page<ArticuloResumen> listar(CategoriaEnum categoria, String q, int page, int size) {
+    public Page<ArticuloResumen> listar(Categoria categoria, String q, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("fechaPublicacion").descending());
 
         Page<ArticuloCultural> resultados;
@@ -44,11 +43,8 @@ public class ArticuloServiceImpl implements ArticuloService {
         }
 
         return resultados.map(a -> new ArticuloResumen(
-                a.getId(),
-                a.getTitulo(),
-                a.getCategoria(),
-                a.getImagenUrl(),
-                a.getFechaPublicacion()));
+                a.getId(), a.getTitulo(), a.getCategoria(),
+                a.getImagenUrl(), a.getFechaPublicacion()));
     }
 
     @Override
@@ -56,33 +52,20 @@ public class ArticuloServiceImpl implements ArticuloService {
         ArticuloCultural a = articuloRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Artículo no encontrado"));
 
-        return new ArticuloResponse(
-                a.getId(),
-                a.getTitulo(),
-                a.getDescripcion(),
-                a.getCategoria(),
-                a.getImagenUrl(),
-                a.getFechaPublicacion());
+        return new ArticuloResponse(a.getId(), a.getTitulo(), a.getDescripcion(),
+                a.getCategoria(), a.getImagenUrl(), a.getFechaPublicacion());
     }
 
     @Override
     public ArticuloResponse crear(ArticuloRequest req) {
         ArticuloCultural articulo = new ArticuloCultural(
-                req.getTitulo(),
-                req.getDescripcion(),
-                req.getCategoria()
-        );
+                req.getTitulo(), req.getDescripcion(), req.getCategoria());
         articulo.setImagenUrl(req.getImagenUrl());
 
         ArticuloCultural guardado = articuloRepository.save(articulo);
 
-        return new ArticuloResponse(
-                guardado.getId(),
-                guardado.getTitulo(),
-                guardado.getDescripcion(),
-                guardado.getCategoria(),
-                guardado.getImagenUrl(),
-                guardado.getFechaPublicacion());
+        return new ArticuloResponse(guardado.getId(), guardado.getTitulo(), guardado.getDescripcion(),
+                guardado.getCategoria(), guardado.getImagenUrl(), guardado.getFechaPublicacion());
     }
 
     @Override
@@ -97,13 +80,8 @@ public class ArticuloServiceImpl implements ArticuloService {
 
         ArticuloCultural actualizado = articuloRepository.save(articulo);
 
-        return new ArticuloResponse(
-                actualizado.getId(),
-                actualizado.getTitulo(),
-                actualizado.getDescripcion(),
-                actualizado.getCategoria(),
-                actualizado.getImagenUrl(),
-                actualizado.getFechaPublicacion());
+        return new ArticuloResponse(actualizado.getId(), actualizado.getTitulo(), actualizado.getDescripcion(),
+                actualizado.getCategoria(), actualizado.getImagenUrl(), actualizado.getFechaPublicacion());
     }
 
     @Override

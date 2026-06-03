@@ -1,6 +1,6 @@
 package com.cultura.narino.dto;
 
-import com.cultura.narino.model.CategoriaEnum;
+import com.cultura.narino.model.Categoria;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -13,7 +13,7 @@ public class ArticuloRequest {
     private String descripcion;
 
     @NotNull(message = "La categoría es obligatoria")
-    private CategoriaEnum categoria;
+    private Categoria categoria;
 
     private String imagenUrl;
 
@@ -36,11 +36,11 @@ public class ArticuloRequest {
         this.descripcion = descripcion;
     }
 
-    public CategoriaEnum getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(CategoriaEnum categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 

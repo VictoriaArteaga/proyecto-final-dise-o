@@ -1,6 +1,6 @@
 package com.cultura.narino.dto;
 
-import com.cultura.narino.model.CategoriaEnum;
+import com.cultura.narino.model.Categoria;
 
 import java.util.Date;
 
@@ -47,14 +47,14 @@ public class AuthResponse {
 
         private String id;
         private String titulo;
-        private CategoriaEnum categoria;
+        private Categoria categoria;
         private String imagenUrl;
         private Date fechaPublicacion;
 
         public ArticuloResumen() {
         }
 
-        public ArticuloResumen(String id, String titulo, CategoriaEnum categoria,
+        public ArticuloResumen(String id, String titulo, Categoria categoria,
                                String imagenUrl, Date fechaPublicacion) {
             this.id = id;
             this.titulo = titulo;
@@ -79,11 +79,11 @@ public class AuthResponse {
             this.titulo = titulo;
         }
 
-        public CategoriaEnum getCategoria() {
+        public Categoria getCategoria() {
             return categoria;
         }
 
-        public void setCategoria(CategoriaEnum categoria) {
+        public void setCategoria(Categoria categoria) {
             this.categoria = categoria;
         }
 

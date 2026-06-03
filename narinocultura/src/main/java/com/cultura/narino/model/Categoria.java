@@ -1,6 +1,6 @@
 package com.cultura.narino.model;
 
-public enum CategoriaEnum {
+public enum Categoria {
     GASTRONOMÍA,
     DANZAS,
     MÚSICA,

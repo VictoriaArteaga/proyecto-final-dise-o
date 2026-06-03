@@ -5,6 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
+import java.util.Date;
+
 @Document(collection = "notificaciones")
 public class Notificacion {
 
@@ -15,14 +17,16 @@ public class Notificacion {
     private boolean leida;
     private Date fechaEnvio;
     private String destinatarioId;
+    private String eventoId;
 
     public Notificacion() {
     }
 
-    public Notificacion(String titulo, String mensaje, String destinatarioId) {
+    public Notificacion(String titulo, String mensaje, String destinatarioId, String eventoId) {
         this.titulo = titulo;
         this.mensaje = mensaje;
         this.destinatarioId = destinatarioId;
+        this.eventoId = eventoId;
         this.leida = false;
         this.fechaEnvio = new Date();
     }
@@ -75,8 +79,18 @@ public class Notificacion {
         this.destinatarioId = destinatarioId;
     }
 
+    public String getEventoId() {
+        return eventoId;
+    }
+
+    public void setEventoId(String eventoId) {
+        this.eventoId = eventoId;
+    }
+
     @Override
     public String toString() {
-        return "Notificacion{id='" + id + "', titulo='" + titulo + "', leida=" + leida + "}";
+        return "Notificacion{id='" + id + "', titulo='" + titulo +
+                "', leida=" + leida + ", destinatarioId='" + destinatarioId +
+                "', eventoId='" + eventoId + "'}";
     }
 }
